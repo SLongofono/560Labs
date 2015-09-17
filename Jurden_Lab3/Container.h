@@ -14,6 +14,6 @@ public:
 
 private:
 
-}
+};
 #include "Container.hpp"
 #endif
