@@ -1,12 +1,17 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
 
+using namespace std;
+
 class Container
 {
 public:
     bool flag;
-    float loadf;
-    
+    int value;
+    Container(int x);
+
+
+
 private:
 
 }
