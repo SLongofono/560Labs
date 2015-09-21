@@ -20,11 +20,13 @@ public:
   int hash(int x);
   int num;
   int prime;
-  //int load;
+  double load;
   void insert(int x);
-  //void print();
+  void print();
+  void remove(int x);
+  int findprime(int x);
+  bool contains(int x);
   /*
-  void delete(int x);
   void hash(x);
   bool contains(x);
   bool isFull();*/

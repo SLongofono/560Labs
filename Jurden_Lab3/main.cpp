@@ -11,11 +11,12 @@ using namespace std;
 int main(){
   //Hash* ht = new Hash();
   int prime = 0;
+
   ifstream infile;
   infile.open("data.txt");
   infile >> prime;
   Hash* ht = new Hash(prime);
-  //ht->primes = {2,3,5,7,11,13,17,19,23,29,31,37};
+  ht->prime = prime;
   ht->num = 0;
 
   //make table full of empty containers with correct flag and value
@@ -23,6 +24,7 @@ int main(){
   	ht->table[i] = new Container(false, -1);
   	cout<<"position "<<i<<endl;
   }
+
   cout<<"done with positions"<<endl;
   int x = -1;
   while(infile.good()){
@@ -30,6 +32,29 @@ int main(){
   	cout<<x<<endl;
   	ht->insert(x);
   }
+
+  ht->print();
+  int sel = 0;
+  do{
+
+  	cout<<"Enter choice: \n1- insert\n2-delete\n3-print\n4-exit\n"<<endl;
+  	cin >> sel;
+  	if(sel == 1){
+  		int x = 0;
+  		cout<<"Enter number to insert: "<<endl;
+  		cin >> x;
+  		ht->insert(x);
+  	}
+  	if(sel == 2){
+  		int x = 0;
+  		cout<<"Enter number to remove: "<<endl;
+  		cin >> x;
+  		ht->remove(x);
+  	}
+  	if(sel == 3){
+  		ht->print();
+  	}
+  }while(sel != 4);
   return(0);
 };
 
