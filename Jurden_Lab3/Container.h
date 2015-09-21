@@ -8,12 +8,6 @@ class Container
 public:
     bool flag;
     int value;
-    Container(int x);
-
-
-
-private:
-
 };
 #include "Container.hpp"
 #endif

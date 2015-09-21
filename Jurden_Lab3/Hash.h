@@ -1,30 +1,38 @@
 #ifndef HASH_H
 #define HASH_H
-#include "Container.h"
 
 using namespace std;
+
+struct Container {
+  bool flag = false;
+    int value = -1;
+    Container(bool f, int v){
+      flag = f;
+      value = v;
+    }
+};
 
 class Hash
 {
 public:
-  Hash();
-
-  Container * table;
-  void build();
+  Hash(int p);
+  Container** table;
+  int hash(int x);
   int num;
   int prime;
   //int load;
-  //void insert(int x);
+  void insert(int x);
   //void print();
   /*
   void delete(int x);
   void hash(x);
   bool contains(x);
-  bool isFull();
-  */
+  bool isFull();*/
+  int* primes; //for picking the prime immediately larger than 2num
+  
 
 private:
-  int* primes[] = {2,3,5,7,11,13,17,19,23,29,31,37};
+  
 };
 #include "Hash.hpp"
 #endif
