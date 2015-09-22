@@ -40,7 +40,7 @@ int Hash::hash(int x){
 
 void Hash::print(){
   for(int i = 0; i<prime; i++){
-    std::cout<<"i: "<<table[i]->value<<" flag = "<<table[i]->flag<<std::endl;
+    std::cout<<i<<":    "<<table[i]->value<<"   flag =  "<<table[i]->flag<<std::endl;
   }
 }
 
