@@ -5,37 +5,22 @@ Hash::Hash(int p){
 
 void Hash::insert(int x){
   if(contains(x)==false){
-    std::cout<<"inserting"<<std::endl;
-    int i = hash(x);
-    table[i]->value = x;
-    num++;
+    std::cout<<"num: "<<num<<std::endl;
     load = num/prime;
+    std::cout<<"load: "<<load<<std::endl;
     if(load > .5){
-      std::cout<<"rehashing"<<std::endl;
-      num = 0;
-      int old = prime;
-      prime = findprime(old);
-      Container** temp = new Container*[prime];
-      //make temp with blank cntainers
-      for(int i = 0; i< prime; i++){
-        temp[i] = new Container(false, -1);
-      } 
-      //rehash table into temp
-      for(int i = 0; i<old; i++){
-        if(table[i]->value != 1){
-          int j = 0;
-          int ind = (x % old) + j;
-          while(temp[ind]->value != -1){
-            i++;
-            ind = (x % old) + i;
-          }
-          temp[ind] = table[i];
-          num++;
-        }
-      }
-      table = temp; 
+      rehash(x);
+      int i = hash(x);
+      table[i]->value = x; 
+      std::cout<<x<<" goes in index "<<i<<std::endl;
     }
-    std::cout<<load<<" goes in index "<<i<<std::endl;
+    else{
+     std::cout<<"inserting"<<std::endl;
+     int i = hash(x);
+     table[i]->value = x;
+     num++; 
+     std::cout<<x<<" goes in index "<<i<<std::endl;
+    }
   }
   else{
     return;
@@ -48,7 +33,7 @@ int Hash::hash(int x){
   int ind = (x % prime) + i;
   while(table[ind]->value != -1){
     i++;
-    ind = (x % prime) + i;
+    ind = ((x+i) % prime);
   }
   return(ind);
 }
@@ -76,15 +61,15 @@ int Hash::findprime(int x){
   int num = 2 * x;
   for(int i = 0; i<12; i++){
     if(num < primes[i]){
-      return num;
+      return primes[i];
     }
     else{
-
     }
   }
 }
 
 bool Hash::contains(int x){
+  std::cout<<"checking"<<std::endl;
   for(int i = 0; i<prime; i++){
     if(Hash::table[i]->value == x){
       return true;
@@ -93,6 +78,32 @@ bool Hash::contains(int x){
       return false;
     }
   }
+}
+
+int Hash::rehash(int x){
+  std::cout<<"rehashing"<<std::endl;
+  num = 0;
+  int old = prime;
+  prime = findprime(old);
+  Container** temp = new Container*[prime];
+  //make temp with blank cntainers
+  for(int i = 0; i< prime; i++){
+    temp[i] = new Container(false, -1);
+  } 
+  //rehash table into temp
+  for(int i = 0; i<old; i++){
+    if(table[i]->value != 1){
+      int j = 0;
+      int ind = ((x+ j) % old) ;
+      while(temp[ind]->value != -1){
+        j++;
+        ind = ((x+j) % old);
+      }
+      temp[ind] = table[i];
+      num++;
+    }
+  }
+  table = temp; 
 }
 /*
 int Hash::remove(x){

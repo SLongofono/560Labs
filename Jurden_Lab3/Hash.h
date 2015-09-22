@@ -18,7 +18,7 @@ public:
   Hash(int p);
   Container** table;
   int hash(int x);
-  int num;
+  double num;
   int prime;
   double load;
   void insert(int x);
@@ -26,6 +26,7 @@ public:
   void remove(int x);
   int findprime(int x);
   bool contains(int x);
+  int rehash(int x);
   /*
   void hash(x);
   bool contains(x);
