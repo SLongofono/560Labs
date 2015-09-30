@@ -1,18 +1,19 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "QueueInterface.h"
+
 #include "BoxOfAnything.h"
+#import "Node.h"
 #include "PreconditionViolationException.h"
 #include <stdexcept>
 
-template<typename T>
-class Queue : public QueueInterface<T>
+
+class Queue
 {
 	public:
 		/**
 		*  @pre queue with values
-		*  @post while queue has values, dequeues 
+		*  @post while queue has values, dequeues
 		*  @return none
 		*/
 		~Queue();
@@ -22,18 +23,18 @@ class Queue : public QueueInterface<T>
 		*  @post assigns member variables to 0 and nullptr
 		*  @return constructed queue
 		*/
-		Queue();	
+		Queue();
 
 		/**
 		*  @pre None
 		*  @post reads size member variable
 		*  @return true if empty, false if not
-		*/	
+		*/
 		 bool isEmpty() const;
 
 		/**
 		*  @pre takes in user entered value
-		*  @post adds item containing value to the queue 
+		*  @post adds item containing value to the queue
 		*  @return none
 		*/
 		 void enqueue(const T newEntry);
@@ -44,7 +45,7 @@ class Queue : public QueueInterface<T>
 		*  @return value of item removed
 		*  @throws PVE if queue is empty
 		*/
-		T dequeue() throw(PreconditionViolationException);
+		Node* dequeue() throw(PreconditionViolationException);
 
 		/**
 		*  @pre queue must have at least one item
@@ -52,7 +53,7 @@ class Queue : public QueueInterface<T>
 		*  @return value of item at front of queue
 		*  @throws PVE if queue is empty
 		*/
-		T peekFront() const throw(PreconditionViolationException);
+		BoxOfAnything* getFront() const throw(PreconditionViolationException);
 
 		/**
 		*  @pre None
@@ -68,53 +69,11 @@ class Queue : public QueueInterface<T>
 		*/
 		 void print() const;
 
-		/**
-		*  @pre None
-		*  @post overrides < operator 
-		*  @return comparison of size and rhs.size
-		*/
-		 bool operator< (const QueueInterface<T>& rhs)const;
-
-		/**
-		*  @pre None
-		*  @post overrides <= operator 
-		*  @return comparison of size and rhs.size
-		*/
-		 bool operator<= (const QueueInterface<T>& rhs) const;
-
-		/**
-		*  @pre None
-		*  @post overrides > operator 
-		*  @return comparison of size and rhs.size
-		*/
-		 bool operator> (const QueueInterface<T>& rhs) const;
-
-		/**
-		*  @pre None
-		*  @post overrides >= operator 
-		*  @return comparison of size and rhs.size
-		*/
-		 bool operator>= (const QueueInterface<T>& rhs) const;
-
-		/**
-		*  @pre None
-		*  @post overrides == operator 
-		*  @return comparison of size and rhs.size
-		*/
-		 bool operator== (const QueueInterface<T>& rhs) const;
-
-		/**
-		*  @pre None
-		*  @post overrides != operator 
-		*  @return comparison of size and rhs.size
-		*/
-		 bool operator!= (const QueueInterface<T>& rhs) const;
 	private:
 		int m_size;
-		BoxOfAnything<T>* m_last;
-		BoxOfAnything<T>* m_first;
+		BoxOfAnything* m_last;
+		BoxOfAnything* m_first;
 };
 
 #include "Queue.hpp"
 #endif
-

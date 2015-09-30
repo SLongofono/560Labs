@@ -1,23 +1,26 @@
 #ifndef NODE_H
 #define NODE_H
-template <typename T>
+
 class Node
 {
 	public:
 		Node();
-		Node(const Node<T>& other);
-		T getValue();
-		Node<T>* getLeft();
-		Node<T>* getRight();
+		//Node(const Node& other);
+		int getValue();
+		Node* getLeft();
+		Node* getRight();
+		Node* getParent();
 		void setValue(T value);
-		void setLeft(Node<T>* left);
-		void setRight(Node<T>* right);
-		
-	private:	
-		Node<T>* m_left;
-		Node<T>* m_right;
+		void setLeft(Node* left);
+		void setRight(Node* right);
+		void setParent(Node* parent);
+
+	private:
+		Node* m_left;
+		Node* m_right;
+		Node* m_parent;
 		T m_value;
-	
+
 };
 #include "Node.hpp"
 #endif
