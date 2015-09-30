@@ -9,7 +9,7 @@
 #ifndef BOX_OF_ANYTHING_H
 #define	BOX_OF_ANYTHING_H
 
-#import "Node.h"
+#include "Node.h"
 
 class BoxOfAnything
 {

@@ -31,7 +31,7 @@ Queue::~Queue()
 	}
 }
 
-void Queue::enqueue(const T newEntry)
+void Queue::enqueue(Node* newEntry)
 {
 	BoxOfAnything* temp = new BoxOfAnything(newEntry);
 	if(m_size==0)
@@ -52,32 +52,19 @@ void Queue::enqueue(const T newEntry)
 
 Node* Queue::dequeue() throw(PreconditionViolationException)
 {
-	if(m_first==nullptr)
-	{
-		throw(PreconditionViolationException("Dequeue attempted on empty queue"));
-	}
-	else
-	{
+
 		BoxOfAnything* temp = m_first;
-		T s = m_first->getValue();
+		Node* s = m_first->getValue();
 		m_first = temp->getNext();
 		m_size = m_size - 1;
 		delete temp;
 		return(s);
-	}
 }
 
 
 BoxOfAnything* Queue::getFront() const  throw(PreconditionViolationException)
 {
-	if(m_first==nullptr)
-	{
-		throw(PreconditionViolationException("empty queue"));
-	}
-	else
-	{
 		return(m_first);
-	}
 }
 
 

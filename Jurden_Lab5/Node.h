@@ -10,7 +10,7 @@ class Node
 		Node* getLeft();
 		Node* getRight();
 		Node* getParent();
-		void setValue(T value);
+		void setValue(int value);
 		void setLeft(Node* left);
 		void setRight(Node* right);
 		void setParent(Node* parent);
@@ -19,7 +19,7 @@ class Node
 		Node* m_left;
 		Node* m_right;
 		Node* m_parent;
-		T m_value;
+		int m_value;
 
 };
 #include "Node.hpp"

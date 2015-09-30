@@ -60,6 +60,7 @@ void BinarySearchTree::remove(int value)
 			//node has no children
 			if(del->getLeft() == nullptr && del->getRight() == nullptr)
 			{
+				del->setValue(0);
 				delete del;
 			}
 			//node has only the left child
@@ -69,10 +70,12 @@ void BinarySearchTree::remove(int value)
 				if(del == parent->getRight())
 				{
 					parent->setRight(del->getLeft());
+					delete del;
 				}
 				else if (del == parent->getLeft())
 				{
 					parent->setLeft(del->getLeft());
+					delete del;
 				}
 			}
 			//node has only the right child
@@ -82,10 +85,12 @@ void BinarySearchTree::remove(int value)
 				if(del == parent->getRight())
 				{
 					parent->setRight(del->getRight());
+					delete del;
 				}
 				else if (del == parent->getLeft())
 				{
 					parent->setLeft(del->getRight());
+					delete del;
 				}
 			}
 			//node has both children, set node to the minimum value of the right subtree
@@ -94,7 +99,7 @@ void BinarySearchTree::remove(int value)
 				Node* min = findMin(del->getRight());
 				del->setValue(min->getValue());
 				min->getParent()->setLeft(min->getRight());
-				delete min;
+				//delete min;
 			}
 		}
 	}
@@ -102,11 +107,15 @@ void BinarySearchTree::remove(int value)
 
 void BinarySearchTree::deleteMax()
 {
-	remove(findMax(m_root)->getValue());
+	Node* max = findMax(m_root);
+	int x = max->getValue();
+	remove(x);
 }
 
 void BinarySearchTree::deleteMin()
 {
+	Node* min = findMin(m_root);
+	int x = min->getValue();
 	remove(findMin(m_root)->getValue());
 }
 //add
@@ -183,13 +192,9 @@ void BinarySearchTree::printTree(Order order)
 	{
 		printTree(m_root, POST_ORDER);
 	}
-	else if(order == LEVEL_ORDER)
-	{
-		printTree(m_root, LEVEL_ORDER);
-	}
 }
 
-template <Typename T>
+
 void BinarySearchTree::printTree(Node* subtree, Order order)
 {
 	if(subtree==nullptr)
@@ -214,10 +219,14 @@ void BinarySearchTree::printTree(Node* subtree, Order order)
 		std::cout<<subtree->getValue()<<", ";
 		printTree(subtree->getRight(), order );
 	}
-	if(order == LEVEL_ORDER)
+
+}
+
+void BinarySearchTree::printTree(Node* subtree, Order order, Queue* q)
+{
+
+	if (order == LEVEL_ORDER)
 	{
-		Queue* q = new Queue();
-		q->enqueue(subtree);
 		if(subtree->getLeft()!= nullptr)
 		{
 			q->enqueue(subtree->getLeft());
@@ -228,7 +237,10 @@ void BinarySearchTree::printTree(Node* subtree, Order order)
 		}
 		int x = q->dequeue()->getValue();
 		std::cout << x << " ";
-		printTree(q->getFront()->getValue(), LEVEL_ORDER);
+		while(q->getFront() != nullptr)
+		{
+		printTree(q->getFront()->getValue(), LEVEL_ORDER, q);
+		}
 	}
 }
 
@@ -245,7 +257,7 @@ Node* BinarySearchTree::findMin(Node* root)
 {
 	if(root->getLeft() != nullptr)
 	{
-			findMin(root->getLeft());
+			return findMin(root->getLeft());
 	}
 	else
 	{
@@ -257,7 +269,7 @@ Node* BinarySearchTree::findMax(Node* root)
 {
 	if(root->getRight()!= nullptr)
 	{
-		findMax(root->getRight());
+		return findMax(root->getRight());
 	}
 	else
 	{

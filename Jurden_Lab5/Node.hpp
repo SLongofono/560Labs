@@ -24,7 +24,7 @@ Node::Node(const Node& other)
 }
 */
 
-T Node::getValue()
+int Node::getValue()
 {
 	return m_value;
 }
@@ -46,7 +46,7 @@ Node* Node::getParent()
 		return m_parent;
 }
 
-void Node::setValue(T value)
+void Node::setValue(int value)
 {
 	m_value = value;
 }

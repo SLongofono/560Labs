@@ -3,7 +3,7 @@
 
 
 #include "BoxOfAnything.h"
-#import "Node.h"
+#include "Node.h"
 #include "PreconditionViolationException.h"
 #include <stdexcept>
 
@@ -37,7 +37,7 @@ class Queue
 		*  @post adds item containing value to the queue
 		*  @return none
 		*/
-		 void enqueue(const T newEntry);
+		 void enqueue(Node* newEntry);
 
 		/**
 		*  @pre queue must have at least one item

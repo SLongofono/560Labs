@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <stdexcept>
 #include "BinarySearchTree.h"
 #include "Queue.h"
 #include "Node.h"
@@ -24,7 +26,9 @@ int main()
 	//need to read in values from data.txt
 	ifstream infile;
   infile.open("data.txt");
+	int x = 0;
   while(infile.good()){
+		infile >> x;
   	orig->add(x);
   }
 
@@ -50,7 +54,7 @@ int main()
 			}
 			else
 			{
-				cout << "which value do you want to remove?"
+				cout << "which value do you want to remove?";
 				int val = 0;
 				cin >> val;
 				orig->remove(val);
@@ -91,7 +95,9 @@ int main()
 				}
 				if(po == 3)
 				{
-					orig->printTree(LEVEL_ORDER);
+					Queue* q = new Queue();
+					q->enqueue(orig->getRoot());
+					orig->printTree(orig->getRoot(), LEVEL_ORDER, q);
 				}
 			}
 		}

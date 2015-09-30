@@ -8,8 +8,7 @@ enum Order{PRE_ORDER,
 	IN_ORDER,
 	POST_ORDER,
 	LEVEL_ORDER};
-	
-template <typename T>
+
 class BinarySearchTree
 {
 	public:
@@ -18,10 +17,11 @@ class BinarySearchTree
 		~BinarySearchTree();
 		void add(int value);
 		void printTree(Order order);
+		void printTree(Node* subtree, Order order, Queue* q);
 		Node* search(int value);
 		Node* getRoot();
 		void deleteTree();
-		void remove(Node* del);
+		void remove(int value);
 		void deleteMin();
 		void deleteMax();
 		Node* findMin(Node* root);

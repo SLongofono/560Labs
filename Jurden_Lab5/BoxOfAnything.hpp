@@ -4,7 +4,7 @@
 *	@date : 9/30/14
 *	Purpose: Implementation file of BoxOfAnything class
 */
-#import "Node.h"
+#include "Node.h"
 
 BoxOfAnything::BoxOfAnything(Node* value)
 {
