@@ -29,9 +29,10 @@ int main()
   	infile.open("data.txt");
 	int x = 0;
 	infile >> x;
+	orig->add(x);
 	  while(infile.good()){
-	  	orig->add(x);
 	  	infile >> x;
+	  	orig->add(x);
 	  }
 	 cout<< orig->getRoot()->getValue() << " = root value";
 
@@ -60,7 +61,7 @@ int main()
 				cout << "which value do you want to remove?";
 				int val = 0;
 				cin >> val;
-				orig->remove(val);
+				orig->removeV(val);
 			}
 		}
 

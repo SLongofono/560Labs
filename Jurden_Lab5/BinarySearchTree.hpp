@@ -47,15 +47,24 @@ void BinarySearchTree::deleteTree()
 	m_root = nullptr;
 }
 
-void BinarySearchTree::remove(int value)
+void BinarySearchTree::removeV(int value)
 {
-		Node* del = search(value, m_root);
-		if(del == nullptr)
+	Node* del = search(value, m_root);
+	if(del == nullptr)
+	{
+		std::cout <<"value not in tree or tree is empty\n";
+	}
+	else
+	{
+		while(del != nullptr)
 		{
-			std::cout <<"value not in tree or tree is empty\n";
+			remove(del);
+			del = search(value, m_root);
 		}
-		else {
-				while(del != nullptr){
+	}
+}
+void BinarySearchTree::remove(Node* del)
+{
 				//node has no children
 				if(del->getLeft() == nullptr && del->getRight() == nullptr)
 				{
@@ -141,18 +150,8 @@ void BinarySearchTree::remove(int value)
 					else
 					{
 						del->setValue(min->getValue());
-						if(del != min->getParent())
-						{
-							min->getParent()->setLeft(min->getRight());
-						}
-						else
-						{
-							min->getParent()->setRight(min->getRight());
-						}
-						delete min;
+						remove(min);
 					}
-				}
-				del = search(value);
 				/*
 				if(del == nullptr)
 				{
@@ -162,7 +161,6 @@ void BinarySearchTree::remove(int value)
 				{
 					remove(value);
 				}	*/
-			}
 	}
 }
 
@@ -170,14 +168,14 @@ void BinarySearchTree::deleteMax()
 {
 	Node* max = findMax(m_root);
 	int x = max->getValue();
-	remove(x);
+	removeV(x);
 }
 
 void BinarySearchTree::deleteMin()
 {
 	Node* min = findMin(m_root);
 	int x = min->getValue();
-	remove(x);
+	removeV(x);
 }
 //add
 //--------------------------------------------------------------

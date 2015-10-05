@@ -23,7 +23,8 @@ class BinarySearchTree
 		Node* search(int value, Node* subtree);
 		Node* getRoot();
 		void deleteTree();
-		void remove(int value);
+		void remove(Node* del);
+		void removeV(int value);
 		void deleteMin();
 		void deleteMax();
 		Node* findMin(Node* root);
