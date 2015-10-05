@@ -16,9 +16,11 @@ class BinarySearchTree
 		//BinarySearchTree(const BinarySearchTree& other);
 		~BinarySearchTree();
 		void add(int value);
+		void add(int value, Node* subtree);
 		void printTree(Order order);
 		void printTree(Node* subtree, Order order, Queue* q);
 		Node* search(int value);
+		Node* search(int value, Node* subtree);
 		Node* getRoot();
 		void deleteTree();
 		void remove(int value);
@@ -28,9 +30,8 @@ class BinarySearchTree
 		Node* findMax(Node* root);
 	private:
 		Node* m_root;
-		void add(int value, Node* subtree);
 		void deleteTree(Node* subtree);
-		Node* search(int value, Node* subtree);
+		
 		void printTree(Node* subtree, Order order);
 };
 #include "BinarySearchTree.hpp"

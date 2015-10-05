@@ -49,46 +49,79 @@ void BinarySearchTree::deleteTree()
 
 void BinarySearchTree::remove(int value)
 {
-		if(search(value) == nullptr)
+		Node* del = search(value, m_root);
+		if(del == nullptr)
 		{
-			std::cout <<"value not in tree\n";
+			std::cout <<"value not in tree or tree is empty\n";
 		}
 		else {
-			Node* del = search(value, m_root);
-			while(del != nullptr)
-			{
+				while(del != nullptr){
 				//node has no children
 				if(del->getLeft() == nullptr && del->getRight() == nullptr)
 				{
-					delete del;
+					Node* parent = del->getParent();
+					if(parent == nullptr)
+					{
+						std::cout<<"tree is empty";
+						delete del;
+					}
+					else if(del == parent->getRight())
+					{
+						parent->setRight(nullptr);
+						delete del;
+					}
+					else if (del == parent->getLeft())
+					{
+						parent->setLeft(nullptr);
+						delete del;
+					}
+
 				}
 				//node has only the left child
 				else if (del->getLeft() != nullptr && del->getRight() == nullptr)
 				{
-					Node* parent = del->getParent();
-					if(del == parent->getRight())
+					//Node* parent = del->getParent();
+					if (del == m_root)
 					{
-						parent->setRight(del->getLeft());
+						m_root = del->getLeft();
+						del->getLeft()->setParent(nullptr);
 						delete del;
 					}
-					else if (del == parent->getLeft())
+					else if(del == del->getParent()->getRight())
 					{
-						parent->setLeft(del->getLeft());
+						del->getParent()->setRight(del->getLeft());
+						del->getLeft()->setParent(del->getParent());
 						delete del;
 					}
+					else if (del == del->getParent()->getLeft())
+					{
+						del->getParent()->setLeft(del->getLeft());
+						del->getLeft()->setParent(del->getParent());
+						delete del;
+					}
+
+					
 				}
 				//node has only the right child
 				else if(del->getLeft() == nullptr && del->getRight() != nullptr)
 				{
-					Node* parent = del->getParent();
-					if(del == parent->getRight())
+					//Node* parent = del->getParent();
+					if (del == m_root)
 					{
-						parent->setRight(del->getRight());
+						m_root = del->getRight();
+						del->getRight()->setParent(nullptr);
 						delete del;
 					}
-					else if (del == parent->getLeft())
+					else if(del == del->getParent()->getRight())
 					{
-						parent->setLeft(del->getRight());
+						del->getParent()->setRight(del->getRight());
+						del->getRight()->setParent(del->getParent());
+						delete del;
+					}
+					else if (del == del->getParent()->getLeft())
+					{
+						del->getParent()->setLeft(del->getRight());
+						del->getRight()->setParent(del->getParent());
 						delete del;
 					}
 				}
@@ -96,11 +129,39 @@ void BinarySearchTree::remove(int value)
 				else if(del->getLeft() != nullptr && del->getRight() != nullptr)
 				{
 					Node* min = findMin(del->getRight());
-					del->setValue(min->getValue());
-					min->getParent()->setLeft(min->getRight());
-					delete min;
+					std::cout<<"min value of right subtree: "<<min->getValue()<<std::endl;
+					if(del == m_root)
+					{
+						std::cout<<"del is root\n";
+						m_root = min;
+						min->setLeft(del->getLeft());
+						min->setParent(nullptr);
+						delete del;
+					}
+					else
+					{
+						del->setValue(min->getValue());
+						if(del != min->getParent())
+						{
+							min->getParent()->setLeft(min->getRight());
+						}
+						else
+						{
+							min->getParent()->setRight(min->getRight());
+						}
+						delete min;
+					}
 				}
 				del = search(value);
+				/*
+				if(del == nullptr)
+				{
+					return;
+				}
+				else
+				{
+					remove(value);
+				}	*/
 			}
 	}
 }
@@ -128,6 +189,7 @@ void BinarySearchTree::add(int value)
 		Node* node = new Node();
 		node->setValue(value);
 		m_root = node;
+		m_root->setParent(nullptr);
 	}
 	else
 	{
@@ -147,8 +209,8 @@ void BinarySearchTree::add(int value, Node* subtree)
 		{
 			Node* temp = new Node();
 			temp->setValue(value);
-			temp->setParent(subtree);
 			subtree->setLeft(temp);
+			temp->setParent(subtree);
 		}
 		else
 		{
@@ -257,7 +319,7 @@ Node* BinarySearchTree::findMin(Node* root)
 {
 	if(root->getLeft() != nullptr)
 	{
-			return findMin(root->getLeft());
+		return findMin(root->getLeft());
 	}
 	else
 	{
@@ -278,7 +340,7 @@ Node* BinarySearchTree::findMax(Node* root)
 }
 Node* BinarySearchTree::search(int value)
 {
-	search(value, m_root);
+	return search(value, m_root);
 }
 
 
@@ -296,7 +358,7 @@ Node* BinarySearchTree::search(int value, Node* subtree)
 	{
 		return search(value, subtree->getLeft());
 	}
-	else if(value > subtree->getValue())
+	else if(value >= subtree->getValue())
 	{
 		return search(value, subtree->getRight());
 	}

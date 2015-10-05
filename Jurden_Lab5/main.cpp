@@ -16,7 +16,8 @@ std::cout<<"2) remove"<<std::endl;
 std::cout<<"3) deletemin"<<std::endl;
 std::cout<<"4) deletemax"<<std::endl;
 std::cout<<"5) print"<<std::endl;
-std::cout<<"6) Exit"<<std::endl;
+std::cout<<"6) Search"<<std::endl;
+std::cout<<"7) Exit"<<std::endl;
 std::cout<<"Your choice: "<<std::endl;
 }
 
@@ -25,12 +26,14 @@ int main()
 	BinarySearchTree* orig = new BinarySearchTree();
 	//need to read in values from data.txt
 	ifstream infile;
-  infile.open("data.txt");
+  	infile.open("data.txt");
 	int x = 0;
-  while(infile.good()){
-		infile >> x;
-  	orig->add(x);
-  }
+	infile >> x;
+	  while(infile.good()){
+	  	orig->add(x);
+	  	infile >> x;
+	  }
+	 cout<< orig->getRoot()->getValue() << " = root value";
 
 	int sel;
 	do{
@@ -102,8 +105,26 @@ int main()
 			}
 		}
 
+		if(sel == 6)
+		{
+			int val = 0;
+			cout<<"enter a value: \n";
+			cin >> val;
+
+			Node* temp = orig->search(val);
+			cout << temp->getValue() << " = temp val";
+			if(temp != nullptr)
+			{
+				cout <<"val in tree\n";
+			}
+			else 
+			{
+				cout<<"val not in tree\n";
+			}
+		}
+
 	std::cout<<"\n";
-}while(sel!=6);
+}while(sel!=7);
 	if(orig != nullptr)
 	{
 		delete orig;
