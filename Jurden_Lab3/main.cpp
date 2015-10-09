@@ -30,7 +30,13 @@ int main(){
   while(infile.good()){
   	infile >> x;
   	cout<<x<<endl;
+    if(ht->contains(x) == true)
+    {
+      //do nothing
+    }
+    else{
   	ht->insert(x);
+    } 
   }
 
   ht->print();

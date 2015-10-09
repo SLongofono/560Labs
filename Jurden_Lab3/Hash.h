@@ -1,8 +1,9 @@
 #ifndef HASH_H
 #define HASH_H
+#include "Container.h"
 
 using namespace std;
-
+/*
 struct Container {
   bool flag = false;
     int value = -1;
@@ -10,7 +11,7 @@ struct Container {
       flag = f;
       value = v;
     }
-};
+};*/
 
 class Hash
 {

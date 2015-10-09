@@ -6,18 +6,18 @@ Hash::Hash(int p){
 void Hash::insert(int x){
   if(contains(x)==false){
     std::cout<<"num: "<<num<<std::endl;
-    load = num/prime;
+    load = (num+1)/prime;
     std::cout<<"load: "<<load<<std::endl;
     if(load > .5){
       rehash(x);
       int i = hash(x);
-      table[i]->value = x; 
+      table[i]->setValue(x); 
       std::cout<<x<<" goes in index "<<i<<std::endl;
     }
     else{
      std::cout<<"inserting"<<std::endl;
      int i = hash(x);
-     table[i]->value = x;
+     table[i]->setValue(x);
      num++; 
      std::cout<<x<<" goes in index "<<i<<std::endl;
     }
@@ -28,19 +28,19 @@ void Hash::insert(int x){
 }
 
 int Hash::hash(int x){
-  std::cout<<"hashing"<<std::endl;
-  int i = 0;
-  int ind = (x % prime) + i;
-  while(table[ind]->value != -1){
-    i++;
-    ind = ((x+i) % prime);
-  }
-  return(ind);
+    std::cout<<"hashing"<<std::endl;
+    int i = 0;
+    int ind = (x % prime) + i;
+    while(table[ind]->getValue() != -1){
+      i++;
+      ind = ((x+i) % prime);
+    }
+    return(ind);
 }
 
 void Hash::print(){
   for(int i = 0; i<prime; i++){
-    std::cout<<i<<":    "<<table[i]->value<<"   flag =  "<<table[i]->flag<<std::endl;
+    std::cout<<i<<":    "<<table[i]->getValue()<<"   flag =  "<<table[i]->flag<<std::endl;
   }
 }
 
@@ -71,13 +71,13 @@ int Hash::findprime(int x){
 bool Hash::contains(int x){
   std::cout<<"checking"<<std::endl;
   for(int i = 0; i<prime; i++){
-    if(Hash::table[i]->value == x){
+    if(table[i]->getValue() == x){
+      std::cout<<"value is in table!"<<std::endl;
       return true;
     }
-    else{
-      return false;
-    }
   }
+    std::cout<<"value is not in the table!"<<std::endl;
+    return false;
 }
 
 int Hash::rehash(int x){
@@ -92,10 +92,10 @@ int Hash::rehash(int x){
   } 
   //rehash table into temp
   for(int i = 0; i<old; i++){
-    if(table[i]->value != 1){
+    if(table[i]->getValue() != -1){
       int j = 0;
       int ind = ((x+ j) % old) ;
-      while(temp[ind]->value != -1){
+      while(temp[ind]->getValue() != -1){
         j++;
         ind = ((x+j) % old);
       }
