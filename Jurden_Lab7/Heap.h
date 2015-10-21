@@ -14,6 +14,11 @@ public:
   void remove(int x);
   void levelOrder();
   void heapify();
+  void trickleDown(int p);
+  void bubbleUp(int i);
+  void swap(int x, int y);
+  int findMin(int par);
+  int findMax(int par);
 
   int heap[500];
   int size;

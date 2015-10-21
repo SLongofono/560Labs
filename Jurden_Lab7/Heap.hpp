@@ -6,24 +6,111 @@ Heap::Heap()
 
 void Heap::heapify()
 {
-  for(int i = (size-1); i >= 0; i--)
+  int i = floor((size-2)/5);
+  std::cout<<"i = "<<i<<std::endl;
+  while(i>=0)
   {
-    int par = floor((i-1)/5);
-    if(heap[i] < heap[par])
+    std::cout<<"i = "<<i<<std::endl;
+    trickleDown(i);
+    i--;
+  }
+}
+
+void Heap::insert(int x)
+{
+  heap[size] = x;
+  size++;
+  bubbleUp(size-1);
+}
+
+//figure out how to break lines....this isnt right
+
+void Heap::levelOrder()
+{
+  for(int i = 0; i < ceil(size/5); i++)
+  {
+    for(int j = 0; j < pow(5, i); j++)
     {
-      int temp = 0;
-      temp = heap[i];
-      heap[i] = heap[par];
-      heap[par] = temp;
+      for(int k = 0; k < size; k++)
+      {
+        if((k+1)%5 == 0)
+        {
+          std::cout<<heap[k]<<"- ";
+        }
+        else
+        {
+          std::cout<<heap[k]<<" ";
+        }
+      }
+      std::cout<<"\n";
+    }
+
+
+
+
+  }
+}
+
+void Heap::trickleDown(int p)
+{
+  int c = (5*p)+1;
+  if(heap[c] == NULL)
+  {
+    return;
+  }
+  else
+  {
+    int min = findMin(p);
+    if(heap[min]<heap[p])
+    {
+      std::cout<<"swapping"<<heap[p]<<" and "<<heap[min]<<std::endl;
+      swap(p, min);
+      trickleDown(min);
     }
   }
 }
 
-
-void Heap::levelOrder()
+void Heap::bubbleUp(int i)
 {
-  for(int i = 0; i < size; i++)
+  int p = floor((i-1)/5);
+  if(heap[p]<heap[i])
   {
-    std::cout<<heap[i]<<" ";
+    return;
   }
+  else
+  {
+    if(heap[i]<heap[p])
+    {
+      swap(i, p);
+      bubbleUp(p);
+    }
+  }
+}
+
+void Heap::swap(int p, int c)
+{
+  int temp = 0;
+  temp = heap[p];
+  heap[p] = heap[c];
+  heap[c] = temp;
+}
+
+//returns the index of the child with the smallest value given a parent index
+int Heap::findMin(int par)
+{
+  int min = 1;
+  int cind = 5*par;
+  for(int i = 1; i <=5; i++)
+  {
+    if(heap[cind+i]<heap[cind+min])
+    {
+      min = i;
+    }
+  }
+  return (cind + min);
+}
+//returns the index of the child with the largest value given a parent index
+int Heap::findMax(int par)
+{
+
 }

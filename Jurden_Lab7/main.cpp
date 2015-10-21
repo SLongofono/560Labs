@@ -15,19 +15,18 @@ int main()
 	int x = 0;
   infile >> x;
   h->heap[0] = x;
-  int i = 0;
-  h->size++;
+  int i = 1;
 	  while(infile.good()){
-      i++;
       infile >> x;
       h->heap[i] = x;
       h->size++;
+      i++;
 	  }
+    cout<<"size: "<<h->size<<endl;
   infile.close();
   //heapify the newly populated array
   h->heapify();
   h->levelOrder();
-
-
-
+  h->insert(1);
+  h->levelOrder();
 };
