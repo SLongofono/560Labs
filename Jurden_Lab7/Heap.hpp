@@ -27,27 +27,13 @@ void Heap::insert(int x)
 
 void Heap::levelOrder()
 {
-  for(int i = 0; i < ceil(size/5); i++)
+  for(int i = 0; i < size; i ++)
   {
-    for(int j = 0; j < pow(5, i); j++)
+    if(i%5 == 0)
     {
-      for(int k = 0; k < size; k++)
-      {
-        if((k+1)%5 == 0)
-        {
-          std::cout<<heap[k]<<"- ";
-        }
-        else
-        {
-          std::cout<<heap[k]<<" ";
-        }
-      }
-      std::cout<<"\n";
+      std::cout<<heap[i];
+      
     }
-
-
-
-
   }
 }
 
