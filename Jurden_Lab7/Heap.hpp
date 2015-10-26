@@ -23,16 +23,21 @@ void Heap::insert(int x)
   bubbleUp(size-1);
 }
 
-//figure out how to break lines....this isnt right
 
 void Heap::levelOrder()
 {
+  int enter = 0;
+  int line = enter*5;
   for(int i = 0; i < size; i ++)
   {
-    if(i%5 == 0)
+    if(i == line)
     {
-      std::cout<<heap[i];
-      
+      std::cout<<heap[i]<<" "<<std::endl;
+      enter++;
+      line = line + enter*5;
+    }
+    else{
+      std::cout<<heap[i]<<" ";
     }
   }
 }
@@ -49,7 +54,7 @@ void Heap::trickleDown(int p)
     int min = findMin(p);
     if(heap[min]<heap[p])
     {
-      std::cout<<"swapping"<<heap[p]<<" and "<<heap[min]<<std::endl;
+      std::cout<<"swapping "<<heap[p]<<" and "<<heap[min]<<std::endl;
       swap(p, min);
       trickleDown(min);
     }
@@ -95,8 +100,32 @@ int Heap::findMin(int par)
   }
   return (cind + min);
 }
-//returns the index of the child with the largest value given a parent index
-int Heap::findMax(int par)
-{
 
+//returns the index of the node with the largest value.
+int Heap::findMax()
+{
+  int max = 0;
+  for(int i = floor((size-2)/5); i < size; i++)
+  {
+    if(heap[i] > heap[max])
+    {
+      max = i;
+    }
+  }
+  return max;
 }
+
+int Heap::deleteMax()
+{
+  int max = findMax();
+  swap(max, (size-1));
+  arr[size-1] = NULL;
+}
+
+deleteMin
+{
+  swap(0, size-1);
+  arr[size-1] = NULL;
+  trickleDown(0); 
+}
+

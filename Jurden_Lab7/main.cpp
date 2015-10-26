@@ -27,6 +27,6 @@ int main()
   //heapify the newly populated array
   h->heapify();
   h->levelOrder();
-  h->insert(1);
-  h->levelOrder();
+  int max = h->findMax(0);
+  cout<<"max: "<<max;
 };
