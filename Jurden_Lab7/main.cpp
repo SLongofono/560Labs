@@ -26,7 +26,47 @@ int main()
   infile.close();
   //heapify the newly populated array
   h->heapify();
-  h->levelOrder();
-  int max = h->findMax(0);
-  cout<<"max: "<<max;
+  //h->levelOrder();
+  //int max = h->findMax(0);
+  //cout<<"max: "<<max;
+  int sel = 0;
+  while(sel != 6)
+  {
+    cout<<"Make a selection: ";
+    cout<<"1-insert"<<endl;
+    cout<<"2-deletemin"<<endl;
+    cout<<"3-deletemax"<<endl;
+    cout<<"4-remove"<<endl;
+    cout<<"5-levelorder"<<endl;
+    cout<<"6-exit"<<endl;
+    cin>>sel;
+    if(sel == 1)
+    {
+      int num = 0;
+      cout<<"What number to insert?"<<endl;
+      cin >> num;
+      h->insert(num);
+    }
+    if(sel == 2)
+    {
+      h->deleteMin();
+    }
+    if(sel == 3)
+    {
+      h->deleteMax();
+    }
+    if(sel == 4)
+    {
+      int num = 0;
+      cout<<"What number to remove?"<<endl;
+      cin >> num;
+      h->remove(num);
+    }
+    if(sel == 5)
+    {
+      cout<<endl;
+      h->levelOrder();
+      cout<<endl;
+    }
+  }
 };

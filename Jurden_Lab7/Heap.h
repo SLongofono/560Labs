@@ -18,7 +18,8 @@ public:
   void bubbleUp(int i);
   void swap(int x, int y);
   int findMin(int par);
-  int findMax(int par);
+  int findMax();
+  int find(int x);
 
   int heap[500];
   int size;

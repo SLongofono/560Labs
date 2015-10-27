@@ -30,14 +30,21 @@ void Heap::levelOrder()
   int line = enter*5;
   for(int i = 0; i < size; i ++)
   {
-    if(i == line)
-    {
-      std::cout<<heap[i]<<" "<<std::endl;
-      enter++;
-      line = line + enter*5;
-    }
-    else{
-      std::cout<<heap[i]<<" ";
+    if(heap[i] != 0)
+    {  
+      if(i == line)
+      {
+        std::cout<<heap[i]<<" "<<std::endl;
+        enter++;
+        line = line + enter*5;
+      }
+      else if((i >= 10) && (i!=line) && (i%5 == 0))
+      {
+        std::cout<<heap[i]<<" - ";
+      }
+      else{
+        std::cout<<heap[i]<<" ";
+      }
     }
   }
 }
@@ -45,7 +52,7 @@ void Heap::levelOrder()
 void Heap::trickleDown(int p)
 {
   int c = (5*p)+1;
-  if(heap[c] == NULL)
+  if(heap[c] == 0)
   {
     return;
   }
@@ -93,7 +100,7 @@ int Heap::findMin(int par)
   int cind = 5*par;
   for(int i = 1; i <=5; i++)
   {
-    if(heap[cind+i]<heap[cind+min])
+    if((heap[cind+i]<heap[cind+min]) && (heap[cind+ i]!=0))
     {
       min = i;
     }
@@ -115,17 +122,50 @@ int Heap::findMax()
   return max;
 }
 
-int Heap::deleteMax()
+void Heap::deleteMax()
 {
   int max = findMax();
   swap(max, (size-1));
-  arr[size-1] = NULL;
+  heap[size-1] = 0;
+  size--;
 }
 
-deleteMin
+void Heap::deleteMin()
 {
   swap(0, size-1);
-  arr[size-1] = NULL;
+  heap[size-1] = 0;
+  size--;
   trickleDown(0); 
 }
+
+void Heap::remove(int x)
+{
+  while(find(x) != -1)
+  {
+    int num = find(x);
+    swap(num, size-1);
+    heap[size-1] = 0;
+    trickleDown(num);  
+    size--;
+  }
+}
+
+int Heap::find(int x)
+{
+  for(int i = 0; i < size; i++)
+  {
+    if(heap[i] == x)
+    {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+
+
+
+
+
 
