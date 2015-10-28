@@ -21,7 +21,7 @@ class Heap
     int findMax(int par);
     int find(int x);
     int grandparent(int i);
-
+    int parent(int i);
     int heap[500];
     int size;
 };

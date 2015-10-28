@@ -56,13 +56,6 @@ int main()
     }
     if(sel == 4)
     {
-      int num = 0;
-      cout<<"What number to remove?"<<endl;
-      cin >> num;
-      h->remove(num);
-    }
-    if(sel == 5)
-    {
       cout<<endl;
       h->levelOrder();
       cout<<endl;

@@ -59,7 +59,7 @@ void Heap::levelOrder()
 //new trickledown
 void Heap::trickleDown(int i)
 {
-  if(floor(lg(i))%2 == 0)
+  if(int(floor(log2(i)))%2 == 0)
   {
     trickleDownMin(i);
   }
@@ -71,27 +71,30 @@ void Heap::trickleDown(int i)
 
 void Heap::trickleDownMin(int i)
 {
-  int c = heap[2i+1];
-  int g = heap[2(2i+1)+1];
-  if(c != 0)
+  int c = 2*i+1;
+  int g = 2*(2*i+1)+1;
+  if((2*i+1) < size)
   {
     int mc = findMin(i);
     int mg = findMin(c);
-    if(heap[mg] < heap[mc])
+    if(g < size)
     {
-      if(heap[mg] < heap[i])
+      if(heap[mg] < heap[mc])
       {
-        swap(mg, i);
-        if(heap[mg]>heap[floor((mg-1)/2)])
+        if(heap[mg] < heap[i])
         {
-          swap(mg, floor((mg-1)/2));
+          swap(mg, i);
+          if(heap[mg]>heap[parent(mg)])
+          {
+            swap(mg, parent(mg));
+          }
+          trickleDownMin(mg);
         }
-        trickleDownMin(mg);
       }
     }
     else
     {
-      if(heap[mc]<heap[i)
+      if(heap[mc]<heap[i])
       {
         swap(mc, i);
       }
@@ -101,8 +104,8 @@ void Heap::trickleDownMin(int i)
 
 void Heap::trickleDownMax(int i)
 {
-  int c = heap[2i+1];
-  int g = heap[2(2i+1)+1];
+  int c = 2*i+1;
+  int g = 2*(2*i+1)+1;
   if(c != 0)
   {
     int mc = findMax(i);
@@ -112,16 +115,16 @@ void Heap::trickleDownMax(int i)
       if(heap[mg] > heap[i])//max value is a grandchild of i
       {
         swap(mg, i);
-        if(heap[mg]<heap[floor((mg-1)/2)])//check with the parent
+        if(heap[mg]<heap[parent(mg)])//check with the parent
         {
-          swap(mg, floor((mg-1)/2));
+          swap(mg, parent(mg));
         }
         trickleDownMax(mg);//call recursively
       }
     }
     else //max value is a child of i
     {
-      if(heap[mc]>heap[i)
+      if(heap[mc]>heap[i])
       {
         swap(mc, i);
       }
@@ -132,12 +135,12 @@ void Heap::trickleDownMax(int i)
 
 void Heap::bubbleUp(int i)
 {
-  if(floor(lg(i))%2 == 0) //i is on a min level
+  if(int(floor(log2(i)))%2 == 0) //i is on a min level
   {
-    if((floor((i-1)/2) >= 0) && (heap[i] > heap[floor((i-1)/2)])) //i has parent and i > parent
+    if((parent(i) >= 0) && (heap[i] > heap[parent(i)])) //i has parent and i > parent
     {
-      swap(i, floor((i-1)/2));
-      bubbleUpMax(floor((i-1)/2));
+      swap(i, parent(i));
+      bubbleUpMax(parent(i));
     }
     else
     {
@@ -146,10 +149,10 @@ void Heap::bubbleUp(int i)
   }
   else //i is on a max level
   {
-    if((floor((i-1)/2) >= 0) && (heap[i] < heap[floor((i-1)/2)]))
+    if((floor((i-1)/2) >= 0) && (heap[i] < heap[parent(i)]))
     {
-      swap(i, floor((i-1)/2));
-      bubbleUpMin(floor((i-1)/2));
+      swap(i, parent(i));
+      bubbleUpMin(parent(i));
     }
     else
     {
@@ -222,9 +225,10 @@ int Heap::findMax(int p)
   return (cind + max);
 }
 
+//need to modify deletemax and min
 void Heap::deleteMax()
 {
-  int max = findMax();
+  int max = findMax(0);
   swap(max, (size-1));
   heap[size-1] = 0;
   size--;
@@ -252,5 +256,10 @@ int Heap::find(int x)
 
 int Heap::grandparent(int i)
 {
-  return(floor(((floor((i-1)/5))-1)/5))
+  return(floor(((floor((i-1)/2))-1)/2));
+}
+
+int Heap::parent(int i)
+{
+  return(floor(i-1)/2);
 }
