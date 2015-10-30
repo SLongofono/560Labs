@@ -13,14 +13,14 @@ int main()
   ifstream infile;
   infile.open("data.txt");
 	int x = 0;
+  int i = 0;
   infile >> x;
-  h->heap[0] = x;
-  int i = 1;
 	  while(infile.good()){
-      infile >> x;
       h->heap[i] = x;
+      cout<<"added "<<x<<endl;
       h->size++;
       i++;
+      infile >> x;
 	  }
     cout<<"size: "<<h->size<<endl;
   infile.close();

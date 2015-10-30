@@ -1,4 +1,4 @@
-//when adding a new number to the heap:
+ //when adding a new number to the heap:
 //check if on the right level (min/max level)
 //check against the grandparents after swap
 
@@ -13,13 +13,16 @@ Heap::Heap()
 }
 
 void Heap::heapify()
-{
+{ 
+  std::cout<<"original heap:"<<std::endl;
+  levelOrder();
   int index = size-1;
-  std::cout<<"i = "<<i<<std::endl;
   for(int i = int(floor((index-1)/2)); i>=0; i--)
   {
+    std::cout<<"i = "<<i<<std::endl;
     trickleDown(i);
     levelOrder();
+    std::cout<<"\n"<<std::endl;
   }
 }
 
@@ -35,7 +38,7 @@ void Heap::levelOrder()
 {
   int enter = 0;
   int line = enter*2;
-  for(int i = 0; i < size; i ++)
+  for(int i = 0; i <= size; i ++)
   {
     if(heap[i] != 0)
     {
@@ -58,17 +61,18 @@ void Heap::levelOrder()
 //new trickledown
 void Heap::trickleDown(int i)
 {
-  if(int(floor(log2(i)))%2 == 0)
+  if(int(floor(log2(i+1)))%2 == 0)
   {
-    std::cout<<"the level is: "<<int(floor(log2(i)))<<std::endl;
+    std::cout<<"min the level is: "<<int(floor(log2(i+1)))<<std::endl;
     trickleDownMin(i);
   }
   else
   {
+    std::cout<<"max the level is: "<<int(floor(log2(i+1)))<<std::endl;
     trickleDownMax(i);
   }
 }
-
+//we have a problem where we arent looking at every grandchild of c....
 void Heap::trickleDownMin(int i)
 {
   int c = 2*i+1;
@@ -77,23 +81,28 @@ void Heap::trickleDownMin(int i)
   {
     int mc = findMin(i);
     int mg = findMin(c);
-    if(g < size)
+    if(c+1 < size)
     {
-      if(heap[mg] < heap[mc])
+      int mg = std::min(heap[findMin(c)], heap[findMin(c+1)]);
+    }
+      if(g < size)
       {
-        if(heap[mg] < heap[i])
+        if(heap[mg] < heap[mc])
         {
-          swap(mg, i);
-          if(heap[mg]>heap[parent(mg)])
+          if(heap[mg] < heap[i])
           {
-            swap(mg, parent(mg));
+            swap(mg, i);
+            if(heap[mg]>heap[parent(mg)])
+            {
+              swap(mg, parent(mg));
+            }
+            trickleDownMin(mg);
           }
-          trickleDownMin(mg);
         }
       }
-    }
     else
     {
+      std::cout<<"grandchild doesnt exist"<<std::endl;
       if(heap[mc]<heap[i])
       {
         swap(mc, i);
@@ -110,6 +119,10 @@ void Heap::trickleDownMax(int i)
   {
     int mc = findMax(i);
     int mg = findMax(c);
+    if(c+1 < size)
+    {
+      int mg = std::max(heap[findMax(c)], heap[findMax(c+1)]);
+    }
     if(g < size)
     {
       if(heap[mg] > heap[mc])
@@ -127,6 +140,7 @@ void Heap::trickleDownMax(int i)
     }
     else
     {
+      std::cout<<"grandchild doesnt exist"<<std::endl;
       if(heap[mc]>heap[i])
       {
         swap(mc, i);
@@ -134,7 +148,6 @@ void Heap::trickleDownMax(int i)
     }
   }
 }
-
 
 void Heap::bubbleUp(int i)
 {
@@ -192,10 +205,12 @@ void Heap::bubbleUpMax(int i)
 
 void Heap::swap(int p, int c)
 {
+  std::cout<<"swapping: "<<heap[c]<<" and "<<heap[p]<<std::endl;
   int temp = 0;
   temp = heap[p];
   heap[p] = heap[c];
   heap[c] = temp;
+  std::cout<<heap[c]<<" is at index "<<c<<" and "<<heap[p]<<" is at index "<<p<<std::endl;
 }
 
 //returns the index of the child with the smallest value given a parent index
@@ -210,6 +225,7 @@ int Heap::findMin(int par)
       min = i;
     }
   }
+  std::cout<<"the min of "<<heap[par]<<" is "<<heap[cind + min]<<std::endl;
   return (cind + min);
 }
 
@@ -225,18 +241,20 @@ int Heap::findMax(int p)
       max = i;
     }
   }
+  std::cout<<"the max of "<<heap[p]<<" is "<<heap[cind + max]<<std::endl;
   return (cind + max);
 }
 
-//need to modify deletemax and min
+//need to modify deletemax and min - THESE DO NOT WORK!!!
 void Heap::deleteMax()
 {
   int max = findMax(0);
   swap(max, (size-1));
   heap[size-1] = 0;
   size--;
+  trickleDown(max);
 }
-
+//DOESNT WORK!!!
 void Heap::deleteMin()
 {
   swap(0, size-1);
