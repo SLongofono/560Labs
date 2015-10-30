@@ -14,13 +14,12 @@ Heap::Heap()
 
 void Heap::heapify()
 {
-  int i = floor((size-2)/2);
+  int index = size-1;
   std::cout<<"i = "<<i<<std::endl;
-  while(i>=0)
+  for(int i = int(floor((index-1)/2)); i>=0; i--)
   {
-    std::cout<<"i = "<<i<<std::endl;
     trickleDown(i);
-    i--;
+    levelOrder();
   }
 }
 
@@ -61,6 +60,7 @@ void Heap::trickleDown(int i)
 {
   if(int(floor(log2(i)))%2 == 0)
   {
+    std::cout<<"the level is: "<<int(floor(log2(i)))<<std::endl;
     trickleDownMin(i);
   }
   else
@@ -72,8 +72,8 @@ void Heap::trickleDown(int i)
 void Heap::trickleDownMin(int i)
 {
   int c = 2*i+1;
-  int g = 2*(2*i+1)+1;
-  if((2*i+1) < size)
+  int g = 2*c+1;
+  if(c < size)
   {
     int mc = findMin(i);
     int mg = findMin(c);
@@ -105,24 +105,27 @@ void Heap::trickleDownMin(int i)
 void Heap::trickleDownMax(int i)
 {
   int c = 2*i+1;
-  int g = 2*(2*i+1)+1;
-  if(c != 0)
+  int g = 2*c+1;
+  if(c < size)
   {
     int mc = findMax(i);
     int mg = findMax(c);
-    if(heap[mg] > heap[mc])
+    if(g < size)
     {
-      if(heap[mg] > heap[i])//max value is a grandchild of i
+      if(heap[mg] > heap[mc])
       {
-        swap(mg, i);
-        if(heap[mg]<heap[parent(mg)])//check with the parent
+        if(heap[mg] > heap[i])
         {
-          swap(mg, parent(mg));
+          swap(mg, i);
+          if(heap[mg]<heap[parent(mg)])
+          {
+            swap(mg, parent(mg));
+          }
+          trickleDownMax(mg);
         }
-        trickleDownMax(mg);//call recursively
       }
     }
-    else //max value is a child of i
+    else
     {
       if(heap[mc]>heap[i])
       {
