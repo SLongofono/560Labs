@@ -41,7 +41,7 @@ Node* Node::getRight()
 	return m_right;
 }
 
-Node* Node::getRank()
+int Node::getRank()
 {
 		return m_rank;
 }

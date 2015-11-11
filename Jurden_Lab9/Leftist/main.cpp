@@ -2,62 +2,67 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <queue>
 #include "Heap.h"
 
 using namespace std;
 
 int main()
 {
+  std::queue<Node*> q;
   Heap* h = new Heap();
-  h->size = 0;
   ifstream infile;
   infile.open("data.txt");
-	int x = 0;
-  int i = 0;
+  int x = 0;
+  infile >> x;
+  h->root = new Node();
+  h->root->setValue(x);
   infile >> x;
 	  while(infile.good()){
-      h->heap[i] = x;
+      h->insert(x, h);
       cout<<"added "<<x<<endl;
-      h->size++;
-      i++;
       infile >> x;
 	  }
-    cout<<"size: "<<h->size<<endl;
   infile.close();
-  //heapify the newly populated array
-  h->heapify();
-  //h->levelOrder();
-  //int max = h->findMax(0);
-  //cout<<"max: "<<max;
+
   int sel = 0;
-  while(sel != 5)
+  while(sel != 6)
   {
     cout<<"Make a selection: ";
     cout<<"1-insert"<<endl;
     cout<<"2-deletemin"<<endl;
-    cout<<"3-deletemax"<<endl;
-    cout<<"4-levelorder"<<endl;
-    cout<<"5-exit"<<endl;
+    cout<<"3-preorder"<<endl;
+    cout<<"4-inorder"<<endl;
+    cout<<"5-levelorder"<<endl;
+    cout<<"6-exit"<<endl;
     cin>>sel;
     if(sel == 1)
     {
       int num = 0;
       cout<<"What number to insert?"<<endl;
       cin >> num;
-      h->insert(num);
+      h->insert(num, h);
     }
     if(sel == 2)
     {
-      h->deleteMin();
+      h->deleteMin(h);
     }
     if(sel == 3)
     {
-      h->deleteMax();
+      cout<<endl;
+      h->print(h, PRE_ORDER);
+      cout<<endl;
     }
     if(sel == 4)
     {
       cout<<endl;
-      h->levelOrder();
+      h->print(h, IN_ORDER);
+      cout<<endl;
+    }
+    if(sel == 5)
+    {
+      cout<<endl;
+      h->print(h->root, LEVEL_ORDER, q);
       cout<<endl;
     }
   }
