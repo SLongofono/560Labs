@@ -16,10 +16,10 @@ int main()
   int x = 0;
   infile >> x;
   h->root = new Node();
-  h->root->setValue(x);
+  h->root->value = x;
   infile >> x;
 	  while(infile.good()){
-      h->insert(x, h);
+      h->insert(x, h->root);
       cout<<"added "<<x<<endl;
       infile >> x;
 	  }
@@ -41,7 +41,7 @@ int main()
       int num = 0;
       cout<<"What number to insert?"<<endl;
       cin >> num;
-      h->insert(num, h);
+      h->insert(num, h->root);
     }
     if(sel == 2)
     {
@@ -50,13 +50,13 @@ int main()
     if(sel == 3)
     {
       cout<<endl;
-      h->print(h, PRE_ORDER);
+      h->print(h->root, PRE_ORDER);
       cout<<endl;
     }
     if(sel == 4)
     {
       cout<<endl;
-      h->print(h, IN_ORDER);
+      h->print(h->root, IN_ORDER);
       cout<<endl;
     }
     if(sel == 5)

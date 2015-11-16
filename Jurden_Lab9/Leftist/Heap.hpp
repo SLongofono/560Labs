@@ -1,62 +1,56 @@
 Heap::Heap()
 {
-  root = new Node();
-  left = new Heap();
-  right = new Heap();
+  root = nullptr;
 }
 
-Heap* Heap::merge(Heap* h1, Heap* h2)
+Node* Heap::merge(Node* h1, Node* h2)
 {
-  cout<<"merging"<<endl;
-  if(h1->root == nullptr)
+  cout<<"merging "<<endl;
+  if(h1 == nullptr)
   {
+    cout<<"h1 is null returning "<<h2->value<<endl;
     return h2;
   }
-  else if(h2->root == nullptr)
+  else if(h2 == nullptr)
   {
+    cout<<"h2 is null returning "<<h1->value<<endl;
     return h1;
   }
-  else if(h1->root->getValue() > h2->root->getValue())
+  else if(h1->value > h2->value)
   {
-    swap(h1, h2);
+    std::swap(h1, h2);
   }
   h1->right =  merge(h1->right, h2);
   setRanks(h1);
-  if(h1->left->root->getRank() < h1->right->root->getRank())
+  if(h1->left == nullptr)
   {
-    swap(h1->left, h1->right);
+      std::swap(h1->left, h1->right);
   }
+  else if(h1->left->getRank() < h1->right->getRank())
+  {
+    std::swap(h1->left, h1->right);
+  }
+  cout<<"returning "<<h1->value<<endl;
   return h1;
 }
 
 void Heap::deleteMin(Heap* h)
 {
-  Heap* h1 = h->left;
-  Heap* h2 = h->right;
+  Node* h1 = h->root->left;
+  Node* h2 = h->root->right;
   delete h->root;
   merge(h1, h2);
 }
 
-void Heap::insert(int x, Heap* h)
+void Heap::insert(int x, Node*& h)
 {
-  cout<<"inserting"<<endl;
-  Heap* h1 = new Heap();
+  cout<<"inserting "<<x<<endl;
   Node* r = new Node();
-  h1->root = r;
-  h1->root->setValue(x);
-  merge(h1, h);
+  r->value = x;
+  h = merge(h,r);
 }
 
-void Heap::swap(Heap* h1, Heap* h2)
-{
-  Heap* temp = nullptr;
-  h1 = temp;
-  h1 = h2;
-  h2 = temp;
-  delete temp;
-}
-
-int Heap::adjustRank(Heap* r)
+int Heap::adjustRank(Node* r)
 {
   if(r->left == nullptr || r->right == nullptr)
   {
@@ -68,7 +62,7 @@ int Heap::adjustRank(Heap* r)
   }
 }
 
-void Heap::setRanks(Heap* h)
+void Heap::setRanks(Node* h)
 {
   if(h == nullptr)
   {
@@ -76,13 +70,13 @@ void Heap::setRanks(Heap* h)
   }
   else
   {
-    h->root->setRank(adjustRank(h));
+    h->setRank(adjustRank(h));
     setRanks(h->left);
     setRanks(h->right);
   }
 }
 
-void Heap::print(Heap* subtree, Order order)
+void Heap::print(Node* subtree, Order order)
 {
 	if(subtree==nullptr)
 	{
@@ -90,14 +84,14 @@ void Heap::print(Heap* subtree, Order order)
 	}
 	if(order == PRE_ORDER)
 	{
-		std::cout<<subtree->root->getValue()<<", ";
+		std::cout<<subtree->value<<", ";
 		print(subtree->left, order);
 		print(subtree->right, order);
 	}
 	if(order == IN_ORDER)
 	{
 		print(subtree->left, order);
-		std::cout<<subtree->root->getValue()<<", ";
+		std::cout<<subtree->value<<", ";
 		print(subtree->right, order );
 	}
 }
@@ -106,16 +100,16 @@ void Heap::print(Node* subtree, Order order, std::queue<Node*> q)
 {
 	if (order == LEVEL_ORDER)
 	{
-		if(subtree->getLeft()!= nullptr)
+		if(subtree->left!= nullptr)
 		{
-			q.push(subtree->getLeft());
+			q.push(subtree->left);
 		}
-		if(subtree->getRight()!= nullptr)
+		if(subtree->right!= nullptr)
 		{
-			q.push(subtree->getRight());
+			q.push(subtree->right);
 		}
 		Node* x = q.front();
-		std::cout << x->getValue() << " ";
+		std::cout << x->value << " ";
     q.pop();
 		while(q.front() != nullptr)
 		{

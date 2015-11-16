@@ -2,6 +2,7 @@
 #define HEAP_H
 #include <cmath>
 #include <queue>
+#include <algorithm>
 #include "Node.h"
 
 using namespace std;
@@ -14,17 +15,14 @@ class Heap
 {
   public:
     Heap();
-    Heap* merge(Heap* h1, Heap* h2);
+    Node* merge(Node* h1, Node* h2);
     void deleteMin(Heap* h);
-    void insert(int x, Heap* h);
-    void swap(Heap* h1, Heap* h2);
-    int adjustRank(Heap* root);
-    void setRanks(Heap* h);
-    void print(Heap* root, Order order);
+    void insert(int x, Node*& h);
+    int adjustRank(Node* root);
+    void setRanks(Node* h);
+    void print(Node* root, Order order);
     void print(Node* root, Order order, std::queue<Node*> q);
     Node* root;
-    Heap* right;
-    Heap* left;
 };
 #include "Heap.hpp"
 #endif
