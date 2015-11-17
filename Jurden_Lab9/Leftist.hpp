@@ -21,7 +21,7 @@ LNode* Leftist::merge(LNode* h1, LNode* h2)
     std::swap(h1, h2);
   }
   h1->right =  merge(h1->right, h2);
-  setRanks(h1);
+  h1->setRank(adjustRank(h1));
   if(h1->left == nullptr)
   {
       std::swap(h1->left, h1->right);
@@ -58,7 +58,7 @@ int Leftist::adjustRank(LNode* r)
   }
   else
   {
-    return std::min(1 + adjustRank(r->left), 1+adjustRank(r->right));
+    return std::min(1 + r->left->getRank(), 1+r->right->getRank());
   }
 }
 

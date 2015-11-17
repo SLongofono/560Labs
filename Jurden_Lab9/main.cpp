@@ -71,35 +71,28 @@ int main(){
 			Leftist* left = new Leftist();
 			int rlim = sizes[num] * 4;
 			//keep track of index for recording each seed time
-			int seed = floor(sd/5);
 			//increment load factor as appropriate
 			//populate left
-			int count = 0;
 			int val = 0;
 			srand(sd);
 			t.start();
 			for(int i = 0; i <= sizes[num]; i++)
 			{
-				cout << count << endl;
+				//cout << count << endl;
 				val = rand() % rlim;
 				left->insert(val, left->root);
-				count++;
 			}
 			double left_time = t.stop();
-			count = 0;
 			srand(sd);
 			t.start();
 			for(int i = 0; i <= sizes[num]; i++)
 			{
 				val = rand() % rlim;
 				skew->insert(val, skew->root);
-				count++;
 			}
 			double skew_time = t.stop();
 			skewBAVG[num] += skew_time;
 			leftBAVG[num] += left_time;
-			leftB[num][seed] = left_time;
-			skewB[num][seed] = skew_time;
 			ske << skew_time << ',';
 			lef << left_time << ',';
 
@@ -107,7 +100,6 @@ int main(){
 			//now do insert/delete operations
 			double r;
 			int lim = sizes[num] * .1;
-			count = 0;
 			srand(sd);
 			t.start();
 			for(int i = 0; i < lim; i++)
@@ -122,14 +114,14 @@ int main(){
 					val = rand() % rlim;
 					left->insert(val, left->root);
 				}
-				count++;
+
 			}
 			double left_tID = t.stop();
 
-			count = 0;
+
 			srand(sd);
 			t.start();
-			while(count < lim)
+			for(int i = 0; i < lim; i++)
 			{
 				r = ((double) rand() / (RAND_MAX)) + 1;
 				if(0 <= r <.5)
@@ -141,13 +133,11 @@ int main(){
 					val = rand() % rlim;
 					skew->insert(val, skew->root);
 				}
-				count++;
+				
 			}
 			double skew_tID = t.stop();
 			skewIAVG[num] += skew_tID;
 			leftIAVG[num] += left_tID;
-			leftI[num][seed] = left_tID;
-			skewI[num][seed] = skew_tID;
 			skeID << skew_tID << ',';
 			lefID << left_tID << ',';
 		}
@@ -169,3 +159,8 @@ int main(){
 	lefID.close();
 	skeID.close();
 };
+
+
+/*
+	need to implement level order for both heaps
+*/
