@@ -78,8 +78,9 @@ int main(){
 			int val = 0;
 			srand(sd);
 			t.start();
-			while(count <= sizes[num])
+			for(int i = 0; i <= sizes[num]; i++)
 			{
+				cout << count << endl;
 				val = rand() % rlim;
 				left->insert(val, left->root);
 				count++;
@@ -88,7 +89,7 @@ int main(){
 			count = 0;
 			srand(sd);
 			t.start();
-			while(count <= sizes[num])
+			for(int i = 0; i <= sizes[num]; i++)
 			{
 				val = rand() % rlim;
 				skew->insert(val, skew->root);
@@ -109,7 +110,7 @@ int main(){
 			count = 0;
 			srand(sd);
 			t.start();
-			while(count < lim)
+			for(int i = 0; i < lim; i++)
 			{
 				r = ((double) rand() / (RAND_MAX)) + 1;
 				if(0 <= r <.5)
