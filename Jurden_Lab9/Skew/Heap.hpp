@@ -26,12 +26,13 @@ Node* Heap::merge(Node* h1, Node* h2)
   return h1;
 }
 
-void Heap::deleteMin(Heap* h)
+void Heap::deleteMin(Node* h)
 {
-  Node* h1 = h->root->left;
-  Node* h2 = h->root->right;
-  delete h->root;
-  merge(h1, h2);
+  Node* h1 = h->left;
+  Node* h2 = h->right;
+  Node* temp = root;
+  root = merge(h1, h2);
+  delete temp;
 }
 
 void Heap::insert(int x, Node*& h)
@@ -65,22 +66,28 @@ void Heap::print(Node* subtree, Order order)
 
 void Heap::print(Node* subtree, Order order, std::queue<Node*> q)
 {
-	if (order == LEVEL_ORDER)
-	{
-		if(subtree->left!= nullptr)
-		{
-			q.push(subtree->left);
-		}
-		if(subtree->right!= nullptr)
-		{
-			q.push(subtree->right);
-		}
-		Node* x = q.front();
-		std::cout << x->value << " ";
-    q.pop();
-		while(q.front() != nullptr)
-		{
-		print(q.front(), LEVEL_ORDER, q);
-		}
-	}
+  if (order == LEVEL_ORDER)
+  {
+    q.push(subtree);
+    while(q.front() != nullptr)
+    {
+      int lcount = q.size();
+      while(lcount > 0)
+      {
+        Node* x = q.front();
+        std::cout << x->value << " ";
+        q.pop();
+        if(x->left!= nullptr)
+        {
+          q.push(x->left);
+        }
+        if(x->right!= nullptr)
+        {
+          q.push(x->right);
+        }
+        lcount--;
+      }
+      cout << '\n';
+    }
+  }
 }

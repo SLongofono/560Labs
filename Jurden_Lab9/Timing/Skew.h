@@ -13,7 +13,7 @@ class Skew
   public:
     Skew();
     SNode* merge(SNode* h1, SNode* h2);
-    void deleteMin(Skew* h);
+    void deleteMin(SNode* h);
     void insert(int x, SNode*& h);
     void print(SNode* root, Order order);
     void print(SNode* root, Order order, std::queue<SNode*> q);

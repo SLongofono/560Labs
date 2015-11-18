@@ -34,12 +34,13 @@ LNode* Leftist::merge(LNode* h1, LNode* h2)
   return h1;
 }
 
-void Leftist::deleteMin(Leftist* h)
+void Leftist::deleteMin(LNode* h)
 {
-  LNode* h1 = h->root->left;
-  LNode* h2 = h->root->right;
-  delete h->root;
-  merge(h1, h2);
+  LNode* h1 = h->left;
+  LNode* h2 = h->right;
+  LNode* temp = root;
+  root = merge(h1, h2);
+  delete temp;
 }
 
 void Leftist::insert(int x, LNode*& h)
@@ -100,20 +101,26 @@ void Leftist::print(LNode* subtree, Order order, std::queue<LNode*> q)
 {
 	if (order == LEVEL_ORDER)
 	{
-		if(subtree->left!= nullptr)
-		{
-			q.push(subtree->left);
-		}
-		if(subtree->right!= nullptr)
-		{
-			q.push(subtree->right);
-		}
-		LNode* x = q.front();
-		std::cout << x->value << " ";
-    q.pop();
+    q.push(subtree);
 		while(q.front() != nullptr)
 		{
-		print(q.front(), LEVEL_ORDER, q);
+      int lcount = q.size();
+      while(lcount > 0)
+      {
+        LNode* x = q.front();
+        std::cout << x->value << " ";
+        q.pop();
+        if(x->left!= nullptr)
+    		{
+    			q.push(x->left);
+    		}
+    		if(x->right!= nullptr)
+    		{
+    			q.push(x->right);
+    		}
+        lcount--;
+      }
+      cout << '\n';
 		}
 	}
 }

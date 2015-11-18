@@ -14,7 +14,7 @@ class Leftist
   public:
     Leftist();
     LNode* merge(LNode* h1, LNode* h2);
-    void deleteMin(Leftist* h);
+    void deleteMin(LNode* h);
     void insert(int x, LNode*& h);
     int adjustRank(LNode* root);
     void setRanks(LNode* h);

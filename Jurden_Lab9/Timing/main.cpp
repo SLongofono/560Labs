@@ -104,10 +104,10 @@ int main(){
 			t.start();
 			for(int i = 0; i < lim; i++)
 			{
-				r = ((double) rand() / (RAND_MAX)) + 1;
+				r = ((double) rand() / (RAND_MAX));
 				if(0 <= r <.5)
 				{
-					left->deleteMin(left);
+					left->deleteMin(left->root);
 				}
 				if(0.5 <= r <1)
 				{
@@ -123,17 +123,17 @@ int main(){
 			t.start();
 			for(int i = 0; i < lim; i++)
 			{
-				r = ((double) rand() / (RAND_MAX)) + 1;
+				r = ((double) rand() / (RAND_MAX));
 				if(0 <= r <.5)
 				{
-					skew->deleteMin(skew);
+					skew->deleteMin(skew->root);
 				}
 				if(0.5 <= r <1)
 				{
 					val = rand() % rlim;
 					skew->insert(val, skew->root);
 				}
-				
+
 			}
 			double skew_tID = t.stop();
 			skewIAVG[num] += skew_tID;

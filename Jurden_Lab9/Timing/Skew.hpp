@@ -26,12 +26,13 @@ SNode* Skew::merge(SNode* h1, SNode* h2)
   return h1;
 }
 
-void Skew::deleteMin(Skew* h)
+void Skew::deleteMin(SNode* h)
 {
-  SNode* h1 = h->root->left;
-  SNode* h2 = h->root->right;
-  delete h->root;
-  merge(h1, h2);
+  SNode* h1 = h->left;
+  SNode* h2 = h->right;
+  SNode* temp = root;
+  root = merge(h1, h2);
+  delete temp;
 }
 
 void Skew::insert(int x, SNode*& h)
@@ -65,22 +66,28 @@ void Skew::print(SNode* subtree, Order order)
 
 void Skew::print(SNode* subtree, Order order, std::queue<SNode*> q)
 {
-	if (order == LEVEL_ORDER)
+  if (order == LEVEL_ORDER)
 	{
-		if(subtree->left!= nullptr)
-		{
-			q.push(subtree->left);
-		}
-		if(subtree->right!= nullptr)
-		{
-			q.push(subtree->right);
-		}
-		SNode* x = q.front();
-		std::cout << x->value << " ";
-    q.pop();
+    q.push(subtree);
 		while(q.front() != nullptr)
 		{
-		print(q.front(), LEVEL_ORDER, q);
+      int lcount = q.size();
+      while(lcount > 0)
+      {
+        SNode* x = q.front();
+        std::cout << x->value << " ";
+        q.pop();
+        if(x->left!= nullptr)
+    		{
+    			q.push(x->left);
+    		}
+    		if(x->right!= nullptr)
+    		{
+    			q.push(x->right);
+    		}
+        lcount--;
+      }
+      cout << '\n';
 		}
 	}
 }

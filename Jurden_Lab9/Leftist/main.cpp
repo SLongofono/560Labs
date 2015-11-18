@@ -45,7 +45,7 @@ int main()
     }
     if(sel == 2)
     {
-      h->deleteMin(h);
+      h->deleteMin(h->root);
     }
     if(sel == 3)
     {
