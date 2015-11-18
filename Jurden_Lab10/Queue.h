@@ -1,15 +1,18 @@
 #ifndef QUEUE_H
 #define QUEUE_H
+#include <array>
+#include <cmath>
 
 class Queue {
 
 public:
-  Node* queue[10];
+  Queue();
+  Node* q[10];
   void insert(x);
   void deletemin();
   void merge(Node* q1, Node* q2);
   void levelorder();
-  
+  int len;
 private:
   struct Node {
     int order;
