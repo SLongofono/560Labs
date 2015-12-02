@@ -13,9 +13,11 @@ public:
   void insert(x);
   void deletemin();
   void merge(Queue* q1, Queue* q2);
-  void levelorder();
+  void combineTree(Node* &r1, Node* &r2);
+  void levelorderQueue();
+  void levelorder(Node* node);
   int len;
-  swap(Node* &node1, Node* &node2)
+  swap(Node* &node1, Node* &node2);
 private:
   struct Node {
     int order;

@@ -93,23 +93,34 @@ Node** Queue::merge(Node** q1, Node** q2)
   }
   return q3;
 }
-void Queue::levelorder()
+void Queue::levelorderQueue()
+{
+  
+}
+
+void Queue::levelorder(Node* node)
 {
 
 }
-
-Node* Queue::combineTree(Node* &r1, Node* &r2)
+void Queue::combineTree(Node* &r1, Node* &r2)
 {
+  r1->order++;
   if(r1->first == nullptr)
   {
     r1->first = r2;
   }
-  if(r1->right == nullptr)
+  if(r1->first->right == nullptr)
   {
-    r1->right = r2;
+    r1->first->right = r2;
+    r2->left = r1->first;
+    r1->order++;
   }
   else{
-    combineTree(r1->right, r2);
+    Node* tempR = r1->first;
+    while(tempR->right != nullptr){
+      tempR = tempR->right;
+    }
+    tempR->right = r2;
   }
 }
 
