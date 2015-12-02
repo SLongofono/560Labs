@@ -3,6 +3,8 @@
 #include <array>
 #include <cmath>
 
+using namespace std;
+
 class Queue {
 
 public:
@@ -10,9 +12,10 @@ public:
   Node* q[10];
   void insert(x);
   void deletemin();
-  void merge(Node* q1, Node* q2);
+  void merge(Queue* q1, Queue* q2);
   void levelorder();
   int len;
+  swap(Node* &node1, Node* &node2)
 private:
   struct Node {
     int order;
