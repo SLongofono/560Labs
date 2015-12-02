@@ -11,18 +11,15 @@ void Queue::insert(int x)
  Queue* q2 = new Queue();
  Node* qu2 = new Node(0, x, nullptr, nullptr, nullptr);
  q2->q[0] = qu2;
- merge()
+ merge(this.q, q2)
 }
 
 void Queue::deletemin()
 {
 
 }
-Queue* Queue::merge(Queue* queue1, Queue* queue2)
+Node** Queue::merge(Node** q1, Node** q2)
 {
-  Node* q1[] = queue1->q;
-  Node* q2[] = queue2->q;
-
   Queue* queue3 = new Queue();
   queue3-> len = 0;
   Node* q3[] = queue3->q;
@@ -40,7 +37,7 @@ Queue* Queue::merge(Queue* queue1, Queue* queue2)
       {
         swap(n1, n3)
       }
-      n1->first = n3;
+      combineTree(n1, n3);
       q3[i+1] = n1;
       n3 = nullptr; //do we need to do delete instead?
       n1 = nullptr;
@@ -53,7 +50,7 @@ Queue* Queue::merge(Queue* queue1, Queue* queue2)
       {
         swap(n1, n2);
       }
-      n1->first = n2;
+      combineTree(n1, n2);
       q3[i+1] = n1;
       n2 = nullptr; //do we need to do delete instead?
       n1 = nullptr;
@@ -65,7 +62,7 @@ Queue* Queue::merge(Queue* queue1, Queue* queue2)
       {
         swap(n3, n2);
       }
-      n2->first = n3;
+      combineTree(n2, n3);
       q3[i+1] = n2;
       n2 = nullptr; //do we need to do delete instead?
       n3 = nullptr;
@@ -94,11 +91,26 @@ Queue* Queue::merge(Queue* queue1, Queue* queue2)
     }
 
   }
-  return queue3;
+  return q3;
 }
 void Queue::levelorder()
 {
 
+}
+
+Node* Queue::combineTree(Node* &r1, Node* &r2)
+{
+  if(r1->first == nullptr)
+  {
+    r1->first = r2;
+  }
+  if(r1->right == nullptr)
+  {
+    r1->right = r2;
+  }
+  else{
+    combineTree(r1->right, r2);
+  }
 }
 
 void Queue::swap(Node* &node1, Node* &node2)
