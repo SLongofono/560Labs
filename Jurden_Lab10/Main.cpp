@@ -1,16 +1,19 @@
 #include <iostream>
-#include "Queue.h"
+#include <fstream>
+#include <queue>
+#include "BQueue.h"
 
-using namespace std
+using namespace std;
 int main() {
-  Queue* que = new Queue();
+  BQueue* que = new BQueue();
   ifstream infile;
   infile.open("data.txt");
   int x = 0;
-  infile >> x;
-  que->q[0]->key = x;
-  infile >> x;
-
+  while(infile.good())
+  {
+    //
+  }
+/*
   //think about how to populate this - remember to keep track of order !!!!
 	  while(infile.good()){
       h->insert(x, h->root);
@@ -59,5 +62,5 @@ int main() {
       h->print(h->root, LEVEL_ORDER, q);
       cout<<endl;
     }
-  }
+  }*/
 };

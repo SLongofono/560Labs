@@ -1,8 +1,11 @@
-left: main.o
-	g++ -g -std=c++11 main.o -o left
+bq: main.o bq.o
+	g++ -g -std=c++11 bq.o main.o -o bq
 
-main.o: main.cpp
+main.o: main.cpp BQueue.h
 	g++ -g -std=c++11 -c main.cpp
 
+bq.o: BQueue.h BQueue.hpp
+	g++ -g -std=c++11 -c BQueue.hpp
+
 clean:
-	rm left main.o
+	rm bq main.o

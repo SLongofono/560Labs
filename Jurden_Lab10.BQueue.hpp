@@ -1,30 +1,58 @@
-Queue::Queue()
+#include "BQueue.h"
+
+BQueue::BQueue()
 {
-  this.len = 0;
+
   for(int i =0; i<10; i++)
   {
     q[i] = nullptr;
   }
 }
-void Queue::insert(int x)
+void BQueue::insert(int x)
 {
- Queue* q2 = new Queue();
+ BQueue* q2 = new BQueue();
  Node* qu2 = new Node(0, x, nullptr, nullptr, nullptr);
  q2->q[0] = qu2;
- merge(this.q, q2)
+ merge(this->q, q2)
+}
+/*
+void BQueue::deletemin()
+{
+  Node* min = findMin(q[0]);
+  for(int i = 1; i < 10; i ++)
+  {
+    Node* temp = findMin(q[i]);
+    if(min->key < temp->key)
+    {
+      min = temp;
+    }
+    delete temp;
+  }
+  //now that min is found, we must delete it.
+  Node* t1 = min->first;
+  if(t1 == nullptr)
+  {
+    if()
+  }
+  else if(t1->right == nullptr)//has first node
+  {
+
+  }
+  else{ //min first has siblings
+
+  }
 }
 
-void Queue::deletemin()
+Node* BQueue::findMin(Node* root)
 {
 
 }
-Node** Queue::merge(Node** q1, Node** q2)
+*/
+Node** BQueue::merge(Node** q1, Node** q2)
 {
-  Queue* queue3 = new Queue();
-  queue3-> len = 0;
+  BQueue* queue3 = new BQueue();
   Node* q3[] = queue3->q;
-  int size = std::max(queue1->len, queue2->len);
-  for(int i = 0; i <size; i++)
+  for(int i = 0; i <10; i++)
   {
     n1 = q1[i];
     n2 = q2[i];
@@ -93,16 +121,54 @@ Node** Queue::merge(Node** q1, Node** q2)
   }
   return q3;
 }
-void Queue::levelorderQueue()
+void BQueue::levelorderBQueue()
 {
-  
+  for(int i = 0; i<10; i++)
+  {
+    if(q[i] != nullptr)
+    {
+      std::queue pq;
+      pq.push(q[i]);
+      levelorder(q[i], pq, q[i]->order);
+      cout<<"-------\n"<<endl;
+    }
+  }
 }
 
-void Queue::levelorder(Node* node)
+void BQueue::levelorder(Node* node, std::queue<Node*> pq, int o)
 {
+  int nexto = 0;
+  int order = o;
+  while(!pq.empty())
+  {
+    for(int i = 0; i < order; i++)
+    {
+      Node* temp = pq.front();
+      if(temp->first ==nullptr)
+      {
+        cout<<node->key<<" ";
+        pq.pop();
+      }
+      else{
+        pq.push(temp->first);
+        nexto = nexto + temp->first->order;
+        while(temp->right != nullptr)
+        {
+          nexto = nexto+ temp->right->order;
+          pq.push(temp->right);
+          temp = temp->right;
+        }
+        cout<<node->key<<" ";
+        pq.pop();
+      }
+    }
+    order = nexto;
+    nexto = 0;
+    cout << "\n";
+  }
 
 }
-void Queue::combineTree(Node* &r1, Node* &r2)
+void BQueue::combineTree(Node* &r1, Node* &r2)
 {
   r1->order++;
   if(r1->first == nullptr)
@@ -124,7 +190,7 @@ void Queue::combineTree(Node* &r1, Node* &r2)
   }
 }
 
-void Queue::swap(Node* &node1, Node* &node2)
+void BQueue::swap(Node* &node1, Node* &node2)
 {
     Node *temp = node1;
     node1 = node2;
