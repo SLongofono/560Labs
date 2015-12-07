@@ -1,8 +1,8 @@
 Tree::Tree(){
-
+ graphs = new Graph[numG];
 }
 Tree::Tree(int num){
-  Graph* graphs = new Graph[num];
+  graphs = new Graph[num];
 }
 /*
 Graph* Tree::Kruskal(Graph* g){

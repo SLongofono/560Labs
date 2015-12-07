@@ -16,7 +16,6 @@ int main(){
   for(int i = 0; i < num; i++)
   {
     infile >> size;
-    t->graphs[i] = nullptr;
     Graph* g = new Graph();
     g->size = size;
     for(int i = 0; i < size; i++){
