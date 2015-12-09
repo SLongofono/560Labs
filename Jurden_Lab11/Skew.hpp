@@ -35,12 +35,10 @@ void Skew::deleteMin(Node* h)
   delete temp;
 }
 
-void Skew::insert(int x, Node*& h)
+void Skew::insert(Node* n, Node*& h)
 {
   //cout<<"inserting "<<x<<endl;
-  Node* r = new Node();
-  r->value = x;
-  h = merge(h,r);
+  h = merge(h,n);
 }
 
 

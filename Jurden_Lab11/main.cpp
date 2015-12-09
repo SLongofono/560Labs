@@ -25,7 +25,7 @@ int main(){
       }
     }
     t->printGraph(g);
-
+    t->Kruskal(g);
   }
   infile.close();
 };

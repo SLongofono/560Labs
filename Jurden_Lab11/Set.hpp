@@ -4,10 +4,10 @@ Set::Set(int size){
     this->arr[i] = -1;
   }
 }
-void Set::union(int x, int y)
+void Set::Sunion(int x, int y)
 {
-  r1 = find(x);
-  r2 = find(y);
+  int r1 = find(x);
+  int r2 = find(y);
   if(r1 != r2)
   {
     arr[r1] = r2;
@@ -16,7 +16,7 @@ void Set::union(int x, int y)
 
 int Set::find(int v)
 {
-  if(array[v] == -1)
+  if(arr[v] == -1)
   {
     return v;
   }

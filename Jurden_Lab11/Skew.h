@@ -17,7 +17,7 @@ class Skew
     Skew();
     Node* merge(Node* h1, Node* h2);
     void deleteMin(Node* h);
-    void insert(int x, Node*& h);
+    void insert(Node* n, Node*& h);
     void print(Node* root, Order order);
     void print(Node* root, Order order, std::queue<Node*> q);
     Node* root;

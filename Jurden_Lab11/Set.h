@@ -5,11 +5,11 @@
 
 using namespace std;
 
-class Graph {
+class Set {
 public:
   Set(int size);
   int arr[];
-  void union(int x, int y);
+  void Sunion(int x, int y);
   int find(int v);
 };
 
