@@ -1,6 +1,8 @@
 #ifndef TREE_H
 #define TREE_H
 #include "Graph.h"
+#include "Skew.h"
+#include "Set.h"
 #include <fstream>
 #include <iostream>
 
@@ -12,14 +14,14 @@ class Tree
 
   public:
     Tree();
-    Tree(int num);
     int numG;
-    Graph* graphs;
+      //Graph** graphs;
 
-  //  Graph* Kruskal(Graph* g);
+    Graph* Kruskal(Graph* g);
     Graph* Prims(Graph* g);
     void printGraph(Graph* g);
-    Graph* buildGraph(int size, ifstream& infile);
+
+    //Graph* buildGraph(int size, ifstream infile);
     int countEdge(Graph* g);
     int calcCost(Graph* g);
 };

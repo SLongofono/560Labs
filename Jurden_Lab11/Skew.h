@@ -1,5 +1,6 @@
 #ifndef SKEW_H
 #define SKEW_H
+#include "Node.h"
 #include <cmath>
 #include <queue>
 #include <algorithm>
@@ -12,15 +13,6 @@ enum Order{PRE_ORDER,
 
 class Skew
 {
-private:
-    struct Node {
-      Node* left;
-      Node* right;
-      int value;
-
-      Node():
-      left(nullptr), right(nullptr), value(0) {}
-    };
   public:
     Skew();
     Node* merge(Node* h1, Node* h2);

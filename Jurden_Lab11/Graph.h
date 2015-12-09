@@ -7,7 +7,7 @@ using namespace std;
 
 class Graph {
 public:
-  Graph();
+  Graph(int size);
   int size;
   //dont think we need this... int vertex[size][size];
   int** edges;
